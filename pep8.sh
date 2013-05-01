@@ -1,0 +1,1 @@
+pep8 --show-source --show-pep8  *.py > pep8.txt
