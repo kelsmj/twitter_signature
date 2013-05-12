@@ -132,32 +132,27 @@ if __name__ == '__main__':
         'exclude_replies': 'true'
     }
 
-    configuration = {
+    #configuration hash for the keys
+    keys = {
         "twitter_consumer_secret": config.get(
             'Keys', 'twitter_consumer_secret'),
         "twitter_consumer_key": config.get('Keys', 'twitter_consumer_key'),
         "access_token": config.get('Keys', 'access_token'),
-        "access_token_secret": config.get('Keys', 'access_token_secret'),
-        "twitter_request_token_url":
-        "https://api.twitter.com/oauth/request_token",
-        "twitter_authorize_url":
-        "https://api.twitter.com/oauth/authorize",
-        "twitter_access_token_url":
-        "https://api.twitter.com/oauth/access_token"
+        "access_token_secret": config.get('Keys', 'access_token_secret')
     }
 
     oauth_parameters = get_oauth_parameters(
-        configuration['twitter_consumer_key'],
-        configuration['access_token']
+        keys['twitter_consumer_key'],
+        keys['access_token']
     )
 
     oauth_parameters['oauth_signature'] = generate_signature(
         method,
         url,
         url_parameters, oauth_parameters,
-        configuration['twitter_consumer_key'],
-        configuration['twitter_consumer_secret'],
-        configuration['access_token_secret']
+        keys['twitter_consumer_key'],
+        keys['twitter_consumer_secret'],
+        keys['access_token_secret']
     )
 
     headers = {'Authorization': create_auth_header(oauth_parameters)}
